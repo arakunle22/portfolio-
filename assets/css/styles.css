@@ -7,8 +7,10 @@
   --hue: 207;
   --sat: 90%;
   --lig: 61%;
-  --first-color: hsl(var(--hue), var(--sat), var(--lig));
-  --first-color-alt: hsl(var(--hue), var(--sat), 57%); /* -4% */
+  /* --first-color: hsl(var(--hue), var(--sat), var(--lig)); */
+  --first-color: hsl(0, 100%, 50%); /* Red color */
+  /* --first-color-alt: hsl(var(--hue), var(--sat), 57%); -4% */
+  --first-color-alt: hsl(0, var(--sat), 57%); /* Red color */
   --title-color: hsl(var(--hue), 12%, 15%);
   --text-color: hsl(var(--hue), 12%, 45%);
   --text-color-light: hsl(var(--hue), 8%, 75%);
@@ -155,8 +157,8 @@ body.dark-theme{
   height: 110px;
   background: linear-gradient(
     180deg,
-    hsla(var(--hue), var(--sat), var(--lig), 1) 0%,
-    hsla(var(--hue), var(--sat), var(--lig), 0.2) 100%
+    rgba(255, 0, 0, 1) 0%,   /* Start with red */
+    rgba(255, 0, 0, 0.2) 100% /* End with a lighter shade of red */
   );
   border-radius: 50%;
   overflow: hidden;
@@ -164,6 +166,7 @@ body.dark-theme{
   align-items: flex-end;
   justify-content: center;
 }
+
 
 .profile__perfil img{
   width: 100px;
