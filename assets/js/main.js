@@ -60,11 +60,130 @@ const sr = ScrollReveal({
     delay: "400",
 })
 
+// Experience items reveal
+sr.reveal(".experience__item", {
+  origin: "right",
+  distance: "50%",
+  duration: 1200,
+  interval: 200,
+})
+
 sr.reveal('.profile__border')
 sr.reveal('.profile__name', {delay: 500})
 sr.reveal('.profile__profession', {delay: 500})
 sr.reveal('.profile__social', {delay: 700})
-sr.reveal('.profile__info-group', {inetval: 100, delay: 700})
+sr.reveal('.profile__info-group', {interval: 100, delay: 700})
 sr.reveal('.profile__buttons', {delay: 800})
 sr.reveal('.filters__content', {delay: 900})
 sr.reveal('.filters', {delay: 1000})
+
+
+// Experience section animation
+// Experience section animation
+const experienceItems = document.querySelectorAll(".experience__item")
+
+const showExperienceItem = (entries, observer) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show")
+      observer.unobserve(entry.target)
+    }
+  })
+}
+
+const experienceObserver = new IntersectionObserver(showExperienceItem, {
+  threshold: 0.2,
+  rootMargin: "0px 0px -50px 0px",
+})
+
+experienceItems.forEach((item) => {
+  experienceObserver.observe(item)
+})
+
+// Scroll to top functionality
+const scrollToTopButton = document.getElementById("scrollToTop")
+
+const toggleScrollToTopButton = () => {
+  if (window.pageYOffset > 300) {
+    scrollToTopButton.classList.add("show")
+  } else {
+    scrollToTopButton.classList.remove("show")
+  }
+}
+
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  })
+}
+
+window.addEventListener("scroll", toggleScrollToTopButton)
+scrollToTopButton.addEventListener("click", scrollToTop)
+
+
+// Parallax effect for profile background
+const profileContainer = document.querySelector(".profile__container")
+window.addEventListener("mousemove", (e) => {
+  const mouseX = e.clientX / window.innerWidth
+  const mouseY = e.clientY / window.innerHeight
+  profileContainer.style.setProperty("--mouse-x", mouseX)
+  profileContainer.style.setProperty("--mouse-y", mouseY)
+})
+
+// Typing animation for the profession
+const professionElement = document.querySelector(".profile__profession")
+const professionText = professionElement.textContent
+professionElement.textContent = ""
+
+const typeWriter = (text, i = 0) => {
+  if (i < text.length) {
+    professionElement.textContent += text.charAt(i)
+    setTimeout(() => typeWriter(text, i + 1), 100)
+  }
+}
+
+setTimeout(() => typeWriter(professionText), 1000)
+
+// Project hover effect
+const projectCards = document.querySelectorAll(".projects__card")
+projectCards.forEach((card) => {
+  card.addEventListener("mouseenter", () => {
+    card.querySelector(".projects__img").style.transform = "scale(1.1)"
+    card.querySelector(".projects__modal").style.opacity = "1"
+  })
+  card.addEventListener("mouseleave", () => {
+    card.querySelector(".projects__img").style.transform = "scale(1)"
+    card.querySelector(".projects__modal").style.opacity = "0"
+  })
+})
+
+// Skills progress animation
+const skillLevels = document.querySelectorAll(".skills__level")
+skillLevels.forEach((level) => {
+  const percent = level.textContent
+  level.style.setProperty("--percent", percent)
+  level.innerHTML = `<div class="skills__level-bar"></div>${percent}`
+})
+
+// Scroll reveal animation for services
+sr.reveal(".services__card", {
+  origin: "bottom",
+  distance: "50px",
+  duration: 1800,
+  interval: 100,
+})
+
+// Add hover effect for service cards
+const serviceCards = document.querySelectorAll(".services__card")
+serviceCards.forEach((card) => {
+  card.addEventListener("mouseenter", () => {
+    card.querySelector(".services__icon").style.transform = "scale(1.2) rotate(10deg)"
+  })
+
+  card.addEventListener("mouseleave", () => {
+    card.querySelector(".services__icon").style.transform = "scale(1) rotate(0)"
+  })
+})
+
+
